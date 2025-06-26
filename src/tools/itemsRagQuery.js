@@ -11,13 +11,16 @@ export const queryItems = async (query, filters, topK = 5) => {
   if (filters) {
     const filterParts = Object.entries(filters)
       .filter(([_, value]) => value !== undefined)
-      .map(([key, value]) => `${key}='${value}'`);
+      .map(([key, value]) => {
+        if (key === "minPrice") return `price >= ${value}`;
+        if (key === "maxPrice") return `price <= ${value}`;
+        return `${key}='${value}'`;
+      });
 
     if (filterParts.length > 0) {
       filterStr = filterParts.join(" AND ");
     }
   }
-
   const results = await index.query({
     data: query,
     topK,

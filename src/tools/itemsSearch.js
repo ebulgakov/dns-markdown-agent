@@ -4,23 +4,29 @@ import { queryItems } from "./itemsRagQuery.js";
 export const itemsSearchToolDefinition = {
   name: "ItemsSearch",
   parameters: z.object({
-    query: z.string().describe("Поисковый запрос для поиска товаров с ДНС")
-    // price: z.number().optional().nullable().describe("Фильтровать товары по цене")
+    query: z.string().describe("Поисковый запрос для поиска товаров с ДНС"),
+    minPrice: z
+      .number()
+      .nullable(0)
+      .describe("Фильтровать товары от указанной цены 0 до бесконечности"),
+    maxPrice: z.number().nullable(1000000).describe("Фильтровать товары от нуля до указанной цены"),
+    category: z.string().nullable("").describe("Фильтровать товары по категории")
   }),
   description:
     "Поиск товаров с ДНС и информации о них, включая название, цену, категорию, выгоду для покупателя, характеристики, причины уценки и описание. Используйте это, чтобы ответить на вопросы о товарах с ДНС."
 };
-
 export const itemsSearch = async ({ toolArgs }) => {
-  const { query, price } = toolArgs;
+  const { query, category, minPrice, maxPrice } = toolArgs;
 
   const filters = {
-    ...(price && { price })
+    ...(category && { category }),
+    ...(minPrice && { minPrice }),
+    ...(maxPrice && { maxPrice })
   };
 
   let results;
   try {
-    results = await queryItems(query, filters);
+    results = await queryItems(query, filters, 10);
   } catch (error) {
     console.error(error);
     return "Ошибка: Не удалось найти товары";
