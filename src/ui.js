@@ -1,4 +1,5 @@
 import ora from "ora";
+import { resetMemoryToolDefinition } from "./tools/resetMemory.js";
 
 export const showLoader = text => {
   const spinner = ora({
@@ -43,6 +44,10 @@ export const logMessage = message => {
       message.tool_calls.forEach(tool => {
         console.log(`\n${color}[ASSISTANT]${reset}`);
         console.log(`${tool.function.name}\n`);
+
+        if (tool.function.name === resetMemoryToolDefinition.name) {
+          console.log("\nВы хотите очистить историю разговора? (да/нет)\n");
+        }
       });
       return;
     }
