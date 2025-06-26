@@ -18,6 +18,12 @@ const defaultData = {
   messages: []
 };
 
+export const resetDb = async () => {
+  const db = await getDb();
+  db.data = { ...defaultData };
+  await db.write();
+};
+
 export const getDb = async () => {
   const db = await JSONFilePreset("db.json", defaultData);
   return db;

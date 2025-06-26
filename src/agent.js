@@ -26,7 +26,9 @@ export const runAgent = async ({ userMessage, tools }) => {
       loader.update(`executing: ${toolCall.function.name}`);
 
       const toolResponse = await runTool(toolCall, userMessage);
-      await saveToolResponse(toolCall.id, toolResponse);
+      if (typeof toolResponse === "string") {
+        await saveToolResponse(toolCall.id, toolResponse);
+      }
       loader.update(`done: ${toolCall.function.name}`);
     }
   }
