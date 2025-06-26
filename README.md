@@ -8,4 +8,5 @@
 OPENAI_API_KEY="sk-.."
 UPSTASH_VECTOR_REST_URL="https:..."
 UPSTASH_VECTOR_REST_TOKEN="..." # Readonly
+BRAINTRUST_API_KEY="..."
 ```
