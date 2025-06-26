@@ -14,6 +14,6 @@ Eval("ItemsSearch", {
       expected: createToolCallMessage(itemsSearchToolDefinition.name)
     }
   ],
-  task: () => "Запрос на поиск видеокарт",
+  task: () => itemsSearchToolDefinition.name,
   scores: [Factuality]
 });

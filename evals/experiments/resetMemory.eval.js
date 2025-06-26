@@ -12,8 +12,22 @@ Eval("ResetMemory", {
         tools: [resetMemoryToolDefinition]
       }),
       expected: createToolCallMessage(resetMemoryToolDefinition.name)
+    },
+    {
+      input: runLLM({
+        messages: [{ role: "user", content: "Очисти разговор" }],
+        tools: [resetMemoryToolDefinition]
+      }),
+      expected: createToolCallMessage(resetMemoryToolDefinition.name)
+    },
+    {
+      input: runLLM({
+        messages: [{ role: "user", content: "Закончи разговор" }],
+        tools: [resetMemoryToolDefinition]
+      }),
+      expected: createToolCallMessage(resetMemoryToolDefinition.name)
     }
   ],
-  task: () => "Запрос на сброс памяти",
+  task: () => resetMemoryToolDefinition.name,
   scores: [Factuality]
 });
