@@ -1,0 +1,21 @@
+{
+  "name": "dns-markdown-agent",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ebulgakov/dns-markdown-agentdns-markdown-agent#readme",
+  "bugs": {
+    "url": "https://github.com/ebulgakov/dns-markdown-agentdns-markdown-agent/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ebulgakov/dns-markdown-agentdns-markdown-agent.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
