@@ -4,7 +4,7 @@ import { runLLM } from "../../src/llm.js";
 import { itemsSearchToolDefinition } from "../../src/tools/itemsSearch.js";
 import { createToolCallMessage } from "../utils.js";
 
-Eval("ItemsSearch", {
+Eval("DNS", {
   data: () => [
     {
       input: runLLM({

@@ -4,7 +4,7 @@ import { runLLM } from "../../src/llm.js";
 import { resetMemoryToolDefinition } from "../../src/tools/resetMemory.js";
 import { createToolCallMessage } from "../utils.js";
 
-Eval("ResetMemory", {
+Eval("DNS", {
   data: () => [
     {
       input: runLLM({
