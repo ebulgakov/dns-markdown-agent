@@ -1,8 +1,11 @@
-const userMessage = process.argv[2]
+import "dotenv/config";
+import { runAgent } from "./src/agent.js";
+
+const userMessage = process.argv[2];
 
 if (!userMessage) {
-  console.error('Please provide a message')
-  process.exit(1)
+  console.error("Please provide a message");
+  process.exit(1);
 }
 
-console.log(`Usage: ${userMessage}`)
+await runAgent({ userMessage, tools: [] });
