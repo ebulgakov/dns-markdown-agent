@@ -1,7 +1,7 @@
 import { addMessages, getMessages, saveToolResponse } from "./memory.js";
 import { runLLM } from "./llm.js";
 import { showLoader, logMessage } from "./ui.js";
-//import { runTool } from "./toolRunner";
+import { runTool } from "./toolRunner.js";
 
 export const runAgent = async ({ userMessage, tools }) => {
   await addMessages([{ role: "user", content: userMessage }]);
@@ -25,8 +25,8 @@ export const runAgent = async ({ userMessage, tools }) => {
       logMessage(response);
       loader.update(`executing: ${toolCall.function.name}`);
 
-      //const toolResponse = await runTool(toolCall, userMessage);
-      //await saveToolResponse(toolCall.id, toolResponse);
+      const toolResponse = await runTool(toolCall, userMessage);
+      await saveToolResponse(toolCall.id, toolResponse);
       loader.update(`done: ${toolCall.function.name}`);
     }
   }

@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { runAgent } from "./src/agent.js";
+import { tools } from "./src/tools/index.js";
 
 const userMessage = process.argv[2];
 
@@ -8,4 +9,4 @@ if (!userMessage) {
   process.exit(1);
 }
 
-await runAgent({ userMessage, tools: [] });
+await runAgent({ userMessage, tools });
