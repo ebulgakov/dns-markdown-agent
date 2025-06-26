@@ -26,7 +26,7 @@ export const itemsSearch = async ({ toolArgs }) => {
 
   let results;
   try {
-    results = await queryItems(query, filters, 10);
+    results = await queryItems(query, filters, 1000);
   } catch (error) {
     console.error(error);
     return "Ошибка: Не удалось найти товары";
