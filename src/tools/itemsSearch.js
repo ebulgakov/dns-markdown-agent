@@ -10,7 +10,12 @@ export const itemsSearchToolDefinition = {
       .nullable(0)
       .describe("Фильтровать товары от указанной цены 0 до бесконечности"),
     maxPrice: z.number().nullable(1000000).describe("Фильтровать товары от нуля до указанной цены"),
-    category: z.string().nullable("").describe("Фильтровать товары по категории")
+    category: z
+      .string()
+      .nullable("")
+      .describe(
+        "Фильтровать товары по категории. Если категория состоит из нескольких слов, сократите её до одного слова, например, 'ноутбуки' вместо 'ноутбуки и компьютеры' или 'мыши' вместо 'компьютерные мыши'"
+      )
   }),
   description:
     "Поиск товаров с ДНС и информации о них, включая название, цену, категорию, выгоду для покупателя, характеристики, причины уценки и описание. Используйте это, чтобы ответить на вопросы о товарах с ДНС."
@@ -26,7 +31,7 @@ export const itemsSearch = async ({ toolArgs }) => {
 
   let results;
   try {
-    results = await queryItems(query, filters, 1000);
+    results = await queryItems(query, filters, 20);
   } catch (error) {
     console.error(error);
     return "Ошибка: Не удалось найти товары";

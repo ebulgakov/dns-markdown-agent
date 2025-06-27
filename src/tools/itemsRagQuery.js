@@ -14,6 +14,7 @@ export const queryItems = async (query, filters, topK = 5) => {
       .map(([key, value]) => {
         if (key === "minPrice") return `price >= ${value}`;
         if (key === "maxPrice") return `price <= ${value}`;
+        if (key === "category") return `category = '${value.toLowerCase()}'`;
         return `${key}='${value}'`;
       });
 
