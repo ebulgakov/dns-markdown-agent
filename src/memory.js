@@ -50,7 +50,18 @@ export const addMessages = async messages => {
 
 export const getMessages = async () => {
   const db = await getDb();
-  return db.data.messages.map(removeMetadata);
+  const messages = db.data.messages.map(removeMetadata);
+  const lastFive = messages.slice(-5);
+
+  // If first message is a tool response, get one more message before it. Needed for correct context in LLM.
+  if (lastFive[0]?.role === "tool") {
+    const sixthMessage = messages[messages.length - 6];
+    if (sixthMessage) {
+      return [...[sixthMessage], ...lastFive];
+    }
+  }
+
+  return lastFive;
 };
 
 export const saveToolResponse = async (toolCallId, toolResponse) => {
