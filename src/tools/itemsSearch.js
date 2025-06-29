@@ -15,14 +15,14 @@ export const itemsSearchToolDefinition = {
       .nullable("")
       .describe(
         "Фильтровать товары по категории. Если категория состоит из нескольких слов, сократите её до одного слова, например, 'ноутбуки' вместо 'ноутбуки и компьютеры' или 'мыши' вместо 'компьютерные мыши'"
-      )
+      ),
+    count: z.number().nullable(20).describe("Количество товаров для поиска, по умолчанию 20")
   }),
   description:
     "Поиск товаров с ДНС и информации о них, включая название, цену, категорию, выгоду для покупателя, характеристики, причины уценки и описание. Используйте это, чтобы ответить на вопросы о товарах с ДНС."
 };
 export const itemsSearch = async ({ toolArgs }) => {
-  const { query, category, minPrice, maxPrice } = toolArgs;
-
+  const { query, category, minPrice, maxPrice, count } = toolArgs;
   const filters = {
     ...(category && { category }),
     ...(minPrice && { minPrice }),
@@ -31,7 +31,7 @@ export const itemsSearch = async ({ toolArgs }) => {
 
   let results;
   try {
-    results = await queryItems(query, filters, 20);
+    results = await queryItems(query, filters, count);
   } catch (error) {
     console.error(error);
     return "Ошибка: Не удалось найти товары";
